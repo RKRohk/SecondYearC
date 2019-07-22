@@ -1,0 +1,9 @@
+1.WAP to insert a new number at kth location in an array. In the same program, delete an element from mth location.
+
+2.WAP to represent a 2d matrix of size 3x3 into triplet format.
+
+3.WAP to do the addition of 2 sparse matrix 
+
+There are two polynomial, add the polynomials.
+
+WAP to create a single linked list for 10 elements.
