@@ -24,7 +24,7 @@ void insertPos(int n,int pos){//Insert at a particular position
 void insertBeforeElement(int element, int belement){//belement refers to the element before which the insertion has to take place
     struct node *temp = start,*ptr=temp;
     int found=0;
-    while (temp->next)
+    while (temp)
     {
         if(temp->data==belement){
             struct node *newNode = (struct node*) malloc(sizeof(struct node));
@@ -94,6 +94,88 @@ void insert(){
     }while(ch);
 
 }
+void deletePos(int pos){
+    struct node *temp=start;
+    for(int c=0; c<pos-1 ; c++, temp=temp->next); //to move temp to the location of the n-1th element
+    struct node *ptr = temp->next;
+    temp->next = ptr->next;
+    free(ptr);
+}
+void deleteBeforeElement(int belement){
+    struct node *temp = start,*ptr=temp;
+    int found=0;
+    while (temp)
+    {
+        if(temp->next->data==belement){ 
+            ptr->next = temp->next;
+            free(temp);
+            found = 1;
+            break;
+        }
+        if(found)
+            break;
+        ptr = temp;
+        temp = temp->next;
+        
+    }
+    if (!found)
+    {
+        printf("Element not found\n");
+    }  
+}
+void deleteAfterElement(int aelement){
+    struct node *temp=start,*ptr=NULL;
+    int found = 0;
+    while (temp)
+    {
+        if(temp->data==aelement){
+            ptr = temp->next;
+            temp->next = ptr->next;
+            free(ptr);
+            found = 1;
+            break;
+        }
+        temp = temp->next;
+    }
+    if (!found)
+    {
+        printf("Element not found\n");
+    }
+};
+
+void delete(){
+    int ch;
+    do{
+        printf("-------------------------\n1.At a particular position\n2.Before an element\n3.After an element\n0.Exit\n-------------------------\n");
+        scanf("%d",&ch);
+        switch (ch)
+        {
+        case 1:
+            printf("Enter the position to be deleted\n");
+            int pos;
+            scanf("%d",&pos);
+            deletePos(pos);
+            break;
+        case 2:
+            printf("Enter the element before deletion\n");
+            int belement;
+            scanf("%d",&belement);
+            deleteBeforeElement(belement);
+            break;
+        
+        case 3:
+            printf("Enter the element after which deletion should take place\n");
+            int aelement;
+            scanf("%d",&aelement);
+            deleteAfterElement(aelement);
+            break;
+
+        default:
+            break;
+        }
+    }while(ch);
+
+}
 void display(){
     struct node *temp = start;
     while (temp!=NULL)
@@ -109,7 +191,7 @@ void main(){
     struct node *temp = NULL,*ptr;
     do
     {
-        printf("--------------------\n1.Enter Node\n2.Display\n3.Insert\n0.Exit\n------------------\n");
+        printf("--------------------\n1.Enter Node\n2.Display\n3.Insert\n4.Delete\n0.Exit\n------------------\n");
         scanf("%d",&ch);
         switch (ch)
         {
@@ -128,6 +210,12 @@ void main(){
                 break;
             case 3:
                 insert();
+                break;
+            case 4:
+                delete();
+                break;
+            case 0:
+                break;
             default:
                 printf("Invalid option\n");
                 break;
