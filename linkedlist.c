@@ -15,11 +15,18 @@ struct node *createNode(){
 
 void insertPos(int n,int pos){//Insert at a particular position
     struct node *temp=start;
-    for(int c=0; c<pos-1 ; c++, temp=temp->next); //to move temp to the location of the n-1th element
     struct node *ptr = (struct node*) malloc(sizeof(struct node));
-    ptr->data = n;
-    ptr->next = temp->next;
-    temp->next = ptr;
+    if(pos == 0){
+        ptr->data = n;
+        ptr->next = start->next;
+        start->next = ptr;
+    }
+    else{
+        for(int c=0; c<pos-1 ; c++, temp=temp->next); //to move temp to the location of the n-1th element
+        ptr->data = n;
+        ptr->next = temp->next;
+        temp->next = ptr;
+    }
 }
 void insertBeforeElement(int element, int belement){//belement refers to the element before which the insertion has to take place
     struct node *temp = start,*ptr=temp;
@@ -96,32 +103,46 @@ void insert(){
 }
 void deletePos(int pos){
     struct node *temp=start;
-    for(int c=0; c<pos-1 ; c++, temp=temp->next); //to move temp to the location of the n-1th element
-    struct node *ptr = temp->next;
-    temp->next = ptr->next;
-    free(ptr);
+    if(pos == 0){
+        start=start->next;
+        free(temp);
+    }
+    else{
+        for(int c=0; c<pos-1 ; c++, temp=temp->next); //to move temp to the location of the n-1th element
+        struct node *ptr = temp->next;
+        temp->next = ptr->next;
+        free(ptr);
+    }
 }
 void deleteBeforeElement(int belement){
     struct node *temp = start,*ptr=temp;
     int found=0;
-    while (temp)
+    if (start->data == belement)
     {
-        if(temp->next->data==belement){ 
-            ptr->next = temp->next;
-            free(temp);
-            found = 1;
-            break;
-        }
-        if(found)
-            break;
-        ptr = temp;
-        temp = temp->next;
+        printf("Cannot delete before first element\n");
+    }
+    else
+    {
+        while (temp)
+        {
+            if(temp->next->data==belement){ 
+                ptr->next = temp->next;
+                free(temp);
+                found = 1;
+                break;
+            }
+
+            if(found)
+                break;
+            ptr = temp;
+            temp = temp->next;
         
+        }
     }
     if (!found)
-    {
-        printf("Element not found\n");
-    }  
+        {
+            printf("Element not found\n");
+        }   
 }
 void deleteAfterElement(int aelement){
     struct node *temp=start,*ptr=NULL;
