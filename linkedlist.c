@@ -31,17 +31,27 @@ void insertPos(int n,int pos){//Insert at a particular position
 void insertBeforeElement(int element, int belement){//belement refers to the element before which the insertion has to take place
     struct node *temp = start,*ptr=temp;
     int found=0;
-    while (temp)
-    {
-        if(temp->data==belement){
-            struct node *newNode = (struct node*) malloc(sizeof(struct node));
-            newNode->data = element;
-            newNode->next = temp;
-            ptr->next = newNode;
-        }
-        ptr = temp;
-        temp = temp->next;
+    if(belement=start->data){
+        struct node *newNode = (struct node*) malloc(sizeof(struct node));
+        newNode->data = element;
+        newNode->next = start;
+        start = newNode;
+        found = 1;
     }
+    else{
+         while (temp)
+        {
+            if(temp->data==belement){
+                struct node *newNode = (struct node*) malloc(sizeof(struct node));
+                newNode->data = element;
+                newNode->next = temp;
+                ptr->next = newNode;
+            }
+            ptr = temp;
+            temp = temp->next;
+        }
+    }
+   
     if (!found)
     {
         printf("Element not found\n");
