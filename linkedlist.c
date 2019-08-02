@@ -123,7 +123,7 @@ void deleteBeforeElement(int belement){
     }
     else
     {
-        while (temp)
+        while (temp->next)
         {
             if(temp->next->data==belement){ 
                 ptr->next = temp->next;
