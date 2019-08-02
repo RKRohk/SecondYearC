@@ -186,12 +186,26 @@ void display(){
     printf("\n");
     
 }
+
+void sort(){
+    for(struct node *i = start;i;i=i->next){
+        for(struct node *j = start; j->next ; j=j->next ){
+            if ( j->data > j->next->data)
+            {
+                int temp = j->data;
+                j->data = j->next->data;
+                j->next->data = temp;
+            }
+            
+        }
+    }
+}
 void main(){
     int ch;
     struct node *temp = NULL,*ptr;
     do
     {
-        printf("--------------------\n1.Enter Node\n2.Display\n3.Insert\n4.Delete\n0.Exit\n------------------\n");
+        printf("--------------------\n1.Enter Node\n2.Display\n3.Insert\n4.Delete\n5.Sort\n0.Exit\n------------------\n");
         scanf("%d",&ch);
         switch (ch)
         {
@@ -213,6 +227,9 @@ void main(){
                 break;
             case 4:
                 delete();
+                break;
+            case 5:
+                sort();
                 break;
             case 0:
                 break;
